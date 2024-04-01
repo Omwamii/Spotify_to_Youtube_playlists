@@ -10,13 +10,11 @@ from googleapiclient.errors import HttpError
 class App():
     """ App class with functionalities """
     creds, flow, data = (None, None, None)
-
-       _SCOPES = [
-      "https://www.googleapis.com/auth/youtube.readonly",
-      "https://www.googleapis.com/auth/youtube",
-      "https://www.googleapis.com/auth/youtube.upload",
-
-      ]
+    _SCOPES = [
+            "https://www.googleapis.com/auth/youtube.readonly",
+            "https://www.googleapis.com/auth/youtube",
+            "https://www.googleapis.com/auth/youtube.upload"
+            ]
 
     def __init__(self):
         """ Initialize authentication """
@@ -45,6 +43,7 @@ class App():
             self.data = self.youtube.search().list(
                     part='id,snippet'
                     ).execute()
+            print(self.data)
 
 if __name__ == "__main__":
     app = App()

@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import render_template
-from class import App
+from app_class import App
 
 app = Flask(__name__)
 youtube = App()
