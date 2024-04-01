@@ -1,9 +1,10 @@
 from flask import Flask
 from flask import render_template
-from app_class import App
+from spo2yt import Spo2yt
 
 app = Flask(__name__)
-youtube = App()
+
+my_app = Spo2yt()
 
 @app.route("/")
 def index():
