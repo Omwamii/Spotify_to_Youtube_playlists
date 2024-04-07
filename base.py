@@ -78,7 +78,6 @@ class Base():
         try:
             self.spotify = spotipy.Spotify(
                 auth_manager=SpotifyOAuth(scope=self.__sp_scope))
-            # print(self.spotify.current_user_playlists())
         except spotipy.oauth2.SpotifyOauthError as e:
             print("Authentication failed :(")
             print(e)

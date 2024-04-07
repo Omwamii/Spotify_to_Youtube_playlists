@@ -20,6 +20,9 @@ class Spo2yt(Base):
         playlist = self.spotify.playlist(playlist_id)
         tracks = list()
         for item in playlist['tracks'].get('items'):
-            tracks.append(item)
-        print(f"Tracks: {tracks}")
+            # tracks.append(item)
+            if item.get('track'):
+                # for some reason, there exists some empty song items
+                data = {'id': item['track']['id'], 'name': item['track']['name']}
+                tracks.append(data)
         return tracks

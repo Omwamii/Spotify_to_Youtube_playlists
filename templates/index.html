@@ -1,1 +1,27 @@
-<h1>Index page</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spo2yt</title>
+    <link rel="stylesheet" href="../static/styles.css">
+    <script src="../static/script.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+    </style>
+</head>
+<body>
+    <h1>Convert your spotify playlists to youtube music playlists in one click!</h1>
+    <section id="playlists"> 
+        {% for playlist in playlists %}
+            <div class="playlist">
+                <div class="p-cover">
+                    <img src="{{ playlist.cover }}" alt="playlist cover" width="450" height="450">
+                </div>
+                <h3> {{ playlist.name }}</h3>
+            </div>
+        {% endfor %}
+    </section>
+</body>
+</html>
