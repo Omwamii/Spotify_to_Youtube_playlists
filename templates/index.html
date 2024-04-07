@@ -6,22 +6,31 @@
     <title>Spo2yt</title>
     <link rel="stylesheet" href="../static/styles.css">
     <script src="../static/script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
     </style>
 </head>
 <body>
-    <h1>Convert your spotify playlists to youtube music playlists in one click!</h1>
+    <h1 id="title">Convert your spotify playlists to youtube music playlists in one click!</h1>
     <section id="playlists"> 
         {% for playlist in playlists %}
-            <div class="playlist">
-                <div class="p-cover">
-                    <img src="{{ playlist.cover }}" alt="playlist cover" width="450" height="450">
-                </div>
-                <h3> {{ playlist.name }}</h3>
-            </div>
+            <a href="{{ url_for('goto_spotify_playlist', play_id=playlist.id) }}">
+                <div class="playlist" id="{{ playlist.id }}">
+                    <div class="p-cover">
+                        <img src="{{ playlist.cover }}" alt="playlist cover" width="450" height="450" loading="lazy">
+                    </div>
+                    <h3> {{ playlist.name }}</h3>
+                </div>    
+            </a>
+            
         {% endfor %}
     </section>
+
+    <h1>here</h1>
+    <a href="#" class="to-top">
+        <i class="fa-solid fa-arrow-up-to-line"></i>
+    </a>
 </body>
 </html>
