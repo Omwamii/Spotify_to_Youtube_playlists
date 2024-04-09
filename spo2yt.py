@@ -45,7 +45,7 @@ class Spo2yt(Base):
         yt_playlist = self.youtube.playlists().insert(part=part, body=resource).execute()
         if yt_playlist:
             for song in songs:
-                insert_data = {'kind': "youtube#playlistItem", 'snippet': {'playlistId': yt_playlist.get('id'), 'resourceId': {'kind': "youtube#video", 'videoId': song.get('id')}}}
+                insert_data = {'kind': "youtube#playlistItem", 'snippet': {'playlistId': yt_playlist.get('id'), 'resourceId': {'kind': "youtube#searchListResponse", 'videoId': song.get('id')}}}
                 res = self.youtube.playlistItems().insert(part=part, body=insert_data).execute()
                 print(f"Response after inserting playlist item: {res}")
         return yt_playlist
