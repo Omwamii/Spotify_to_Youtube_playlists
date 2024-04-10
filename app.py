@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, redirect
 from flask import render_template
 from spo2yt import Spo2yt
 
@@ -18,10 +18,9 @@ def index():
 def goto_spotify_playlist(play_id:str):
     """ Goes to page for specific playlist """
     name, tracks = my_app.get_spotify_playlist_tracks(play_id)
-    res = my_app.create_youtube_music_playlist(name, tracks)
-    # print(my_app.search_song_youtube('fever'))
-    # name, tracks = [], []
-    return render_template('playlist.html', name=name, tracks=tracks)
+    p_id = my_app.create_youtube_music_playlist(name, tracks)
+    video_1 = my_app.get_yt_playlist_music_videos(p_id)[0]
+    return render_template('playlist.html', name=name, tracks=tracks, playlist_id=p_id, first_video=video_1)
 
 @app.route('/create-playlist/')
 def create_youtube_music_playlist(songs):

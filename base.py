@@ -70,11 +70,6 @@ class Base():
         except HttpError as error:
             # Error with classroom API
             print(f"Youtube Data API error: {error}")
-        else:
-            # calling classroom API to fetch course data
-            self.data = self.youtube.search().list(
-                    part='id,snippet'
-                    ).execute()
         try:
             self.spotify = spotipy.Spotify(
                 auth_manager=SpotifyOAuth(scope=self.__sp_scope))

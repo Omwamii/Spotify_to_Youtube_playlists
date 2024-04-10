@@ -12,9 +12,9 @@
         <li>{{ track.name }}</li>
     {% endfor %}
     </ul>
-    
-    <a href="{{ url_for('create_youtube_music_playlist, songs=tracks') }}">
+    <a href="https://music.youtube.com/watch?v={{ first_video }}&list={{ playlist_id }}&autoplay=1" target="_blank">
         <button>Convert</button>
     </a>
+        
 </body>
 </html>
