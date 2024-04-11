@@ -17,7 +17,7 @@ class Spo2yt(Base):
         return p_info
 
     def get_spotify_playlist_tracks(self, playlist_id: str) -> Any:
-        """ Get tracks for a spotify playlist """
+        """ Get song tracks for a spotify playlist """
         if not playlist_id:
             return []
         playlist = self.spotify.playlist(playlist_id)
