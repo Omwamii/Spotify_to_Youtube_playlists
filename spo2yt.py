@@ -1,4 +1,4 @@
-""" Class with youtube + spotify api resources """
+""" Module with Spo2yt class """
 from base import Base
 from typing import Any
 
@@ -63,14 +63,7 @@ class Spo2yt(Base):
         
         if yt_playlist:
             for song in songs:
-                    res = self.add_song_to_yt_playlist(song['name'], song['artists'], yt_playlist['id'])
-                    if not res:
-                        # song video already exists in playlist
-                        print(f"{song['name']} already exists in playlist")
-                    else:
-                        # print(f"Response after inserting {song['name']}: {res}")
-                        pass
-
+                self.add_song_to_yt_playlist(song['name'], song['artists'], yt_playlist['id'])
         return yt_playlist['id']
     
     def get_yt_playlist_music_videos(self, playlist_id: str) -> Any:
@@ -90,7 +83,6 @@ class Spo2yt(Base):
         part = 'id,snippet,status,contentDetails'
         if yt_song['id']['videoId'] in self.get_yt_playlist_music_videos(playlist_id):
             # song is already in playlist
-            return None
+            return
         insert_data = {'kind': "youtube#playlistItem", 'snippet': {'playlistId': playlist_id, 'resourceId': yt_song.get('id')}}
-        res = self.youtube.playlistItems().insert(part=part, body=insert_data).execute()
-        return res
+        self.youtube.playlistItems().insert(part=part, body=insert_data).execute()
