@@ -50,3 +50,29 @@ h1 {
     font-weight: 600;
     color: #c41434;
 } */
+
+/* carousel styles */
+
+.carousel-container {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel {
+    display: flex;
+    width: 500%; /* Set width to accommodate all items in the carousel */
+    height: 100%;
+    transition: transform 0.5s ease; /* Smooth transition on transform */
+}
+
+.carousel-item {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+}
