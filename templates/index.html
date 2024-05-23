@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Spo2yt</title>
   <link rel="stylesheet" href="../static/styles.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script src="../static/script.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>
@@ -16,25 +15,20 @@
 </head>
 
 <body>
-  <div id="carousel-1" class="carousel" role="region" aria-labelledby="carousel-1-title">
-    <h2 class="carousel-title" id="carousel-1-title">
-      Beautiful Landscapes
-    </h2>
-    <p class="carousel-description">
-      An autoplaying carousel of landscapes with pagination enabled
-    </p>
+  <div class="carousel" role="region" aria-labelledby="carousel-title">
+    <!-- <h2 class="carousel-title" id="carousel-1-title"> Your saved playlists</h2> -->
     {% for playlist in playlists %}
-    <div class="slide" role="tabpanel" aria-labelledby="carousel-{{ playlist.id }}-slide-{{ playlist.id }}-title">
+    <div class="slide" role="tabpanel" aria-labelledby="carousel-slide-{{ loop.index }}-title">
       <div class="slide-content">
         <div class="slide-caption">
-          <h3 id="carousel-1-slide-1-title">Nanda Kot peak</h3>
-          <p>Mukteshwar, Uttarakhand</p>
+          <h3 id="carousel-slide-1-title">{{ playlist.name }}</h3>
+          <p>{{ loop.index }} / {{ loop.length }}</p>
         </div>
-        <img src="{{ playlist.cover }}" alt="album cover" width="800" height="350" />
+        <img src="{{ playlist.cover }}" alt="album cover" width="380" height="300" />
       </div>
     </div>
-  </div>
   {% endfor %}
+</div>
 </body>
 
 </html>

@@ -22,6 +22,7 @@ os.environ['SPOTIPY_CLIENT_ID'] = cl_id
 os.environ['SPOTIPY_CLIENT_SECRET'] = cl_secret
 os.environ['SPOTIPY_REDIRECT_URI'] = "http://127.0.0.1:5000"
 
+
 class Base():
     """ Base class with youtube's google auth & spotify auth"""
     creds, flow, data = (None, None, None)

@@ -152,3 +152,11 @@ iframe {
   transform: scale(1.5);
   background-color: var(--carousel-pagination-btn-active-bg);
 }
+
+.paginate {
+  background-color: red;
+}
+
+.carousel {
+  margin-top: 100px;
+}
