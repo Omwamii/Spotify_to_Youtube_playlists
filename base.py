@@ -9,8 +9,6 @@ from googleapiclient.errors import HttpError
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
-# Read spotify client id
-"""
 f_cl_id = open("sp_client_id", "r")
 cl_id = f_cl_id.read()
 f_cl_id.close()
@@ -22,11 +20,6 @@ f_cl_secret.close()
 
 os.environ['SPOTIPY_CLIENT_ID'] = cl_id
 os.environ['SPOTIPY_CLIENT_SECRET'] = cl_secret
-os.environ['SPOTIPY_REDIRECT_URI'] = "http://127.0.0.1:5000"
-"""
-
-os.environ['SPOTIPY_CLIENT_ID'] = "395b4027785749e8be658134aa307d07"
-os.environ['SPOTIPY_CLIENT_SECRET'] = "b11e8fc5ea1146098df771eef2613c96"
 os.environ['SPOTIPY_REDIRECT_URI'] = "http://127.0.0.1:5000"
 
 class Base():

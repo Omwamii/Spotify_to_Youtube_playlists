@@ -5,4 +5,5 @@ token.json
 credentials.json
 sp_client_id
 sp_client_secret
+secret
 .cache
