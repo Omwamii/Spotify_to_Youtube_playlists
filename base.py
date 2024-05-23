@@ -47,25 +47,26 @@ class Base():
 
     def __init__(self):
         """ Initialize authentication """
+        # TODO after app passed testing stage, change to automatic refresh token
+
         if os.path.exists("token.json"):
-            # The file token.json stores the user's access and refresh tokens
-            # and is created automatically when the auth flow completes
-            # for the first time
-            self.creds = Credentials.from_authorized_user_file('token.json',
-                                                               self.__yt_scope)
+            self.authenticate_from_existing_token_file()
+
         if not self.creds or not self.creds.valid:
             if self.creds and self.creds.expired and self.creds.refresh_token:
-                self.creds.refresh(Request())
+                try:
+                    self.creds.refresh(Request())
+                except Exception:
+                    # failed to refresh, delete token & start again
+                    os.remove('token.json')
+                    self.create_token_from_credentials_file()
             else:
-                # credentials file downloaded to root from google cloud console
-                self.flow = InstalledAppFlow.from_client_secrets_file(
-                        "credentials.json", self.__yt_scope)
-                self.creds = self.flow.run_local_server(
-                        port=8080, access_type='offline', prompt='consent')
+                self.create_token_from_credentials_file()
             with open("token.json", "w") as token:
                 token.write(self.creds.to_json())
+
         try:
-            # setup google classroom api
+            # setup Youtube data api
             self.youtube = build("youtube", "v3", credentials=self.creds)
         except HttpError as error:
             # Error with classroom API
@@ -76,6 +77,23 @@ class Base():
         except spotipy.oauth2.SpotifyOauthError as e:
             print("Authentication failed :(")
             print(e)
+
+    def authenticate_from_existing_token_file(self):
+        """ Authenticate from existing token file"""
+            
+        # The file token.json stores the user's access and refresh tokens
+        # and is created automatically when the auth flow completes
+        # for the first time
+        self.creds = Credentials.from_authorized_user_file('token.json',
+                                                               self.__yt_scope)
+        
+    def create_token_from_credentials_file(self):
+        """ Create authentication token from credentials """
+        # credentials file downloaded to root from google cloud console
+        self.flow = InstalledAppFlow.from_client_secrets_file(
+                            "credentials.json", self.__yt_scope)
+        self.creds = self.flow.run_local_server(
+            port=8080, access_type='offline', prompt='consent')
 
 
 if __name__ == "__main__":
