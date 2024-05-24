@@ -12,7 +12,6 @@ def index():
         Returns all your current saved playlists
     """
     playlists = my_app.get_spotify_playlists()
-    print(playlists[0])
     return render_template('index.html', playlists=playlists)
 
 @app.route('/playlist/<string:play_id>')
