@@ -103,7 +103,11 @@ img {
 }
 
 .slide img {
-  width: 100%;
+  /* width: 60%;
+  height: 80% */
+  /* width: 60%;
+  height: 100%; */
+  margin-left: 600px;
   object-fit: cover;
 }
 
@@ -160,9 +164,9 @@ img {
   background-color: var(--carousel-pagination-btn-active-bg);
 }
 
-.paginate {
+/* .paginate {
   background-color: red;
-}
+} */
 
 .carousel {
   margin-top: 100px;
