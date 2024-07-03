@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Spo2yt</title>
-  <link rel="stylesheet" href="../static/styles.css">
-  <script src="../static/script.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <script src="{{ url_for('static', filename='script.js' )}}"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap');
@@ -15,7 +15,7 @@
 </head>
 
 <body>
-  <h1>Your playlists</h1>
+  <h1 style="text-align: center; color: white;">Your Spotify playlists</h1>
   <div class="carousel" role="region" aria-labelledby="carousel-title">
     <!-- <h2 class="carousel-title" id="carousel-1-title"> Your saved playlists</h2> -->
     {% for playlist in playlists %}
@@ -26,10 +26,13 @@
           <p>{{ loop.index }} / {{ loop.length }}</p>
         </div>
         <img src="{{ playlist.cover }}" alt="album cover" width="380" height="300" />
+        <a id="preview-btn" href="{{ url_for('preview_playlist_conversion', playlist_id=playlist.id) }}">Preview conversion</a>
       </div>
     </div>
   {% endfor %}
-  <button>View your converted playlists</button>
+</div>
+<div id="view-past">
+  <button id="view-past-btn">View past converted playlists</button>
 </div>
 </body>
 

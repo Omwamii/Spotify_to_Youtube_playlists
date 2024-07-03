@@ -28,6 +28,10 @@ def create_youtube_music_playlist():
     # p_id = my_app.create_youtube_music_p
     return "Redirecting to youtube playlists"
     
+@app.route('/preview/<string:playlist_id>/', strict_slashes=False, methods=['GET'])
+def preview_playlist_conversion(playlist_id):
+    name, tracks = my_app.get_spotify_playlist_tracks(playlist_id)
+    return render_template('playlist.html', name=name, tracks=tracks)
 
 if __name__ == "__main__":
     app.run(debug=True, port=8080)

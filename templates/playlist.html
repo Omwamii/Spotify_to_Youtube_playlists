@@ -5,29 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spo2yt</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="../static/script.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='script.js' )}}"></script>
 </head>
 <body>
-    <h1>{{ name }}</h1>
-    <ul data-tracks="{{ tracks }}" id="spotify-tracks">
-    <!-- {% for track in tracks %}
-        <li>{{ track.name }}</li>
-    {% endfor %} -->
-    <li>Losing interest <i src="../static/close.png" class="close-icon" id="1"></i></li>
-    <li>Safe <i src="../static/close.png" class="close-icon" id="2"></i c>
-    <li>Come through <i src="../static/close.png" id="4" class="close-icon"></i></li>
-    <li>Is it true <i src="../static/close.png" id="5" class="close-icon"></i></li>
-    <li>Snowfall <i src="../static/close.png" id="6" class="close-icon"></i></li>
-    <li>Would you be my baby <i src="../static/close.png" id="7" class="close-icon"></i></li>
-    <li>Tried to be patient with you <i src="../static/close.png" id="8" class="close-icon"></i></li>
-    <li>I don't want you <i src="../static/close.png" id="9" class="close-icon"></i></li>
-    <li>Grips on your waist <i src="../static/close.png" id="10" class="close-icon"></i></li>
-    </ul>
-    <button>Convert</button>
-
+    <h1 id="name">{{ name }}</h1>
+    <div id="tracks-list">
+        <ul data-tracks="{{ tracks }}" id="spotify-tracks">
+            {% for track in tracks %}
+                <li>{{ track.name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div id="btn-wrapper">
+        <button id="convert-btn">Convert</button>
+    </div>
     <!-- <a href="https://music.youtube.com/watch?v={{ first_video }}&list={{ playlist_id }}&autoplay=1" target="_blank">
         <button>Convert</button>
     </a> -->
-        
 </body>
 </html>
