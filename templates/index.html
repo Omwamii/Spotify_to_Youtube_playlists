@@ -27,7 +27,7 @@
           <p>{{ loop.index }} / {{ loop.length }}</p>
         </div>
         <img src="{{ playlist.cover }}" alt="album cover" width="380" height="300" />
-        <a id="preview-btn" href="{{ url_for('preview_playlist_conversion', playlist_id=playlist.id) }}">Preview conversion</a>
+          <a id="preview-link" href="{{ url_for('preview_playlist_conversion', playlist_id=playlist.id) }}">Preview  <span id="preview-arrow">➔</span></a>
       </div>
     </div>
   {% endfor %}
