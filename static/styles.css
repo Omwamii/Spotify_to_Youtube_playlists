@@ -282,6 +282,7 @@ img {
   color: white;
   font-weight: 600;
   transition: all 0.5s ease;
+  text-decoration: none;
 }
 
 #playlist-image-preview {

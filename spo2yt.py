@@ -107,15 +107,16 @@ class Spo2yt(Base):
                 time.sleep(60)
                 try:
                     yt_playlist = self.youtube.playlists().insert(part=part, body=resource).execute()
-                except Exception:
+                except Exception as e:
                     print()
-                    print('Error occured again')
+                    print(f'Error occured again : {e}')
                     print()
             print('have inserted')
         
         if yt_playlist:
             for song in songs:
                 self.add_song_to_yt_playlist(song['name'], song['artists'], yt_playlist['id'])
+            print('done converting playlist >>>')
         return yt_playlist['id']
 
     def get_yt_playlist_music_videos(self, playlist_id: str) -> Any:
