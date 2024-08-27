@@ -9,11 +9,17 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
-# from app import app
+import logger
+from dotenv import load_dotenv
+from tokens import yt_token_files
+
+load_dotenv()
 
 class Base():
     """ Base class with youtube's google auth & spotify auth"""
     creds, flow, data = (None, None, None)
+    __current_toke_file = 0
+    _youtube_api_token_files = yt_token_files
 
     # scopes for youtube & spotify
     __yt_scope = [
@@ -25,7 +31,7 @@ class Base():
                 user-library-read
                 playlist-read-private
                 playlist-read-collaborative
-                """
+            """
 
     def __init__(self):
         """ Initialize authentication """
@@ -55,6 +61,7 @@ class Base():
             # Error with classroom API
             # app.logger.info(f"[{time.now()}]: {error}")
             pass
+
         try:
             self.spotify = spotipy.Spotify(
                 auth_manager=SpotifyOAuth(scope=self.__sp_scope))

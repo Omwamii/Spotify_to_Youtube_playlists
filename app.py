@@ -1,19 +1,22 @@
-from flask import Flask, request, jsonify, redirect, url_for, flash
+from flask import Flask, request, jsonify
 from flask import render_template
 from spo2yt import Spo2yt
 from datetime import datetime as time
+from dotenv import load_dotenv
 
 # from celery import Celery
 # from make_celery import make_celery
 
 app = Flask(__name__)
-app.secret_key = 'q3239fbasnqlpdpwep'
+app.secret_key = 'q3239fbasnqlpdpwep'  # change to point to env
 
 # app.config.update(
 #     CELERY_BROKER_URL='redis://localhost:6379/0',
 #     CELERY_RESULT_BACKEND='redis://localhost:6379/0'
 # )
 # celery = make_celery(app)
+
+load_dotenv()
 
 my_app = Spo2yt()
 
@@ -41,7 +44,7 @@ def convert_playlist(playlist_id):
         print(f'An exception occured: {e}')
         link = None
         app.logger.info(f"[{time.now()}]: {e}")
-        flash('An error occurred while converting, try again later')
+        # flash('An error occurred while converting, try again later')
     else:
         video_1 = my_app.get_yt_playlist_music_videos(p_id)[0]
         link = f"https://music.youtube.com/watch?v={video_1}&list={p_id}&autoplay=1"

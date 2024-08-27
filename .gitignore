@@ -1,8 +1,7 @@
 env
 __pycache__
 .gitignore
-token.json
-credentials.json
+*.json
 .secret
 .cache
 .env

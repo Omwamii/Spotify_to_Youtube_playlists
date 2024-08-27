@@ -1,10 +1,15 @@
 import time
 from base import Base
 from typing import Any, List, Dict
-# from app import app
+import logger
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class RateLimiter:
-    """ Simple rate limiter to control the flow of API requests (make use of per minute quota)"""
+    """ Simple rate limiter to control the flow of API requests (attempt at making use of per minute quota)
+        TODO improve RateLimiter to reflect quota cost
+    """
     def __init__(self, max_calls: int, period: float):
         self.max_calls = max_calls
         self.period = period
@@ -67,7 +72,7 @@ class Spo2yt(Base):
     def search_song_youtube(self, song_name: str, song_artists: str) -> Any:
         """ Search for a song and return info else return None """
         print()
-        print('searching song on youtube')
+        print(f'searching song [{song_name}] on youtube')
         if not song_name:
             return None
         search_string = song_name + song_artists
@@ -89,9 +94,7 @@ class Spo2yt(Base):
         yt_playlist = None
 
         self.rate_limiter.wait()
-        print('about to list')  
         my_yt_playlists = self.youtube.playlists().list(part=part, mine=True).execute().get('items')
-        print('have listed')
 
         for playlist in my_yt_playlists:
             if playlist['snippet']['title'] == p_name:
@@ -148,4 +151,3 @@ class Spo2yt(Base):
         insert_data = {'kind': "youtube#playlistItem", 'snippet': {'playlistId': playlist_id, 'resourceId': yt_song.get('id')}}
         self.rate_limiter.wait()
         self.youtube.playlistItems().insert(part=part, body=insert_data).execute()
-        
