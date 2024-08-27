@@ -319,4 +319,3 @@ document.addEventListener('DOMContentLoaded', () => {
 // TODO add event listener for enter key on carousel item
 // TODO 
 
-// Function to send the POST request using Axios

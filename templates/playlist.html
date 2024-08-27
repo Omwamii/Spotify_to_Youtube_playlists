@@ -7,6 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <link rel="icon" href="{{ url_for('static', filename='images/logo.jpg') }}" >
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script src="{{ url_for('static', filename='script.js' )}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
@@ -16,13 +17,43 @@
         <div id="tracks-list">
             <ul data-tracks="{{ tracks }}" id="spotify-tracks">
                 {% for track in tracks %}
-                    <li><span style="margin-right: 10px; margin-left: 3px;">{{ loop.index }})</span> {{ track.name }}</li>
+                    <li><span style="margin-right: 10px; margin-left: 3px;">{{ loop.index }}&#41;</span> {{ track.name }}</li>
                 {% endfor %}
             </ul>
         </div>
     <div id="btn-wrapper">
-        <a href="{{ url_for('convert_playlist', playlist_id=p_id) }}" target="_blank" id="convert-btn">Convert</a>
+        <!-- <a href="{{ url_for('convert_playlist', playlist_id=p_id) }}" id="convert-btn">Convert</a> -->
+        <button id="convert-btn">Convert</button>
     </div>
+    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script> -->
+    <script type="text/javascript">
+        var tracks = {{ tracks | tojson }};
+        const convertBtn = document.querySelector('#convert-btn');
+        let convertBtnClicked = false;
+        const playlistId = "{{ p_id }}";
 
+        convertBtn.addEventListener('click', (event) => {
+            if (convertBtnClicked) {
+                event.preventDefault();
+            } else {
+                convertBtnClicked = true;
+                convertPlaylist(tracks);
+            }
+        })
+
+        // send api call to convert spotify playlist to youtube playlist
+        const convertPlaylist = (tracks) => {
+            axios.post(`/convert/${playlistId}`, {
+                tracks: tracks,
+            })
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+            convertBtnClicked = false;
+        }
+    </script>
 </body>
 </html>

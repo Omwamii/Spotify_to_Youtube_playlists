@@ -1,5 +1,6 @@
 """ Module with Base class """
 import os
+import time
 import os.path
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -8,23 +9,7 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
-
-"""
-f_cl_id = open("sp_client_id", "r")
-cl_id = f_cl_id.read()
-f_cl_id.close()
-
-# Read spotify client secret
-f_cl_secret = open("sp_client_secret", "r")
-cl_secret = f_cl_secret.read()
-f_cl_secret.close()
-
-os.environ['SPOTIPY_CLIENT_ID'] = cl_id
-os.environ['SPOTIPY_CLIENT_SECRET'] = cl_secret
-"""
-os.environ['SPOTIPY_REDIRECT_URI'] = "http://127.0.0.1:5000"
-os.environ['SPOTIPY_CLIENT_ID'] = '395b4027785749e8be658134aa307d07'
-os.environ['SPOTIPY_CLIENT_SECRET'] = 'b11e8fc5ea1146098df771eef2613c96'
+# from app import app
 
 class Base():
     """ Base class with youtube's google auth & spotify auth"""
@@ -53,8 +38,9 @@ class Base():
             if self.creds and self.creds.expired and self.creds.refresh_token:
                 try:
                     self.creds.refresh(Request())
-                except Exception:
+                except Exception as e:
                     # failed to refresh, delete token & start again
+                    app.logger.info(f"[{time.now()}]: {e}")
                     os.remove('token.json')
                     self.create_token_from_credentials_file()
             else:
@@ -67,13 +53,14 @@ class Base():
             self.youtube = build("youtube", "v3", credentials=self.creds)
         except HttpError as error:
             # Error with classroom API
-            print(f"Youtube Data API error: {error}")
+            # app.logger.info(f"[{time.now()}]: {error}")
+            pass
         try:
             self.spotify = spotipy.Spotify(
                 auth_manager=SpotifyOAuth(scope=self.__sp_scope))
         except spotipy.oauth2.SpotifyOauthError as e:
-            print("Authentication failed :(")
-            print(e)
+            # app.logger.info(f"[{time.now()}]: {e}")
+            pass
 
     def authenticate_from_existing_token_file(self):
         """ Authenticate from existing token file"""

@@ -1,6 +1,7 @@
 import time
 from base import Base
 from typing import Any, List, Dict
+# from app import app
 
 class RateLimiter:
     """ Simple rate limiter to control the flow of API requests (make use of per minute quota)"""
@@ -88,7 +89,7 @@ class Spo2yt(Base):
         yt_playlist = None
 
         self.rate_limiter.wait()
-        print('about to list')
+        print('about to list')  
         my_yt_playlists = self.youtube.playlists().list(part=part, mine=True).execute().get('items')
         print('have listed')
 
@@ -99,23 +100,22 @@ class Spo2yt(Base):
                 break
 
         if not playlist_exists:
-            print('about to instert')
+            print('about to instert new playlist')
             self.rate_limiter.wait()
             try:
                 yt_playlist = self.youtube.playlists().insert(part=part, body=resource).execute()
-            except Exception:
-                time.sleep(60)
-                try:
-                    yt_playlist = self.youtube.playlists().insert(part=part, body=resource).execute()
-                except Exception as e:
-                    print()
-                    print(f'Error occured again : {e}')
-                    print()
-            print('have inserted')
+            except Exception as e:
+                # app.logger.info(f"[{time.now()}]: {e}")
+                pass
+            print(f"New playlist [ {playlist['snippet']['title']} ] has been created")
         
         if yt_playlist:
+            print('Adding songs to created playlist')
             for song in songs:
+                print()
+                print(f"Song : {song['name']}")
                 self.add_song_to_yt_playlist(song['name'], song['artists'], yt_playlist['id'])
+                print()
             print('done converting playlist >>>')
         return yt_playlist['id']
 
@@ -138,14 +138,14 @@ class Spo2yt(Base):
             QUOTA COST: 50 units
         """
         print()
-        print('adding song to youtube playlist')
         yt_song = self.search_song_youtube(song, song_artists)
         part = 'id,snippet,status,contentDetails'
         if yt_song['id']['videoId'] in self.get_yt_playlist_music_videos(playlist_id):
-            # Song is already in playlist
+            # Song is already in the playlist
+            print(f'{song} is already in the playlist')
             return
+        print(f'adding song {song} to youtube playlist...')
         insert_data = {'kind': "youtube#playlistItem", 'snippet': {'playlistId': playlist_id, 'resourceId': yt_song.get('id')}}
         self.rate_limiter.wait()
         self.youtube.playlistItems().insert(part=part, body=insert_data).execute()
-
-
+        

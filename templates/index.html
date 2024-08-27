@@ -16,6 +16,15 @@
 </head>
 
 <body>
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  {% endwith %}
   <h1 style="text-align: center; color: white;">Your Spotify playlists</h1>
   <div class="carousel" role="region" aria-labelledby="carousel-title">
     <!-- <h2 class="carousel-title" id="carousel-1-title"> Your saved playlists</h2> -->
