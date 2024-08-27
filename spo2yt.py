@@ -1,7 +1,7 @@
 import time
-from base import Base
+from .base import Base
 from typing import Any, List, Dict
-import logger
+from . import logger
 from dotenv import load_dotenv
 
 load_dotenv()

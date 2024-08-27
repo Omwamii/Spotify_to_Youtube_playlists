@@ -9,9 +9,9 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
-import logger
+from . import logger
 from dotenv import load_dotenv
-from tokens import yt_token_files
+from .tokens import yt_token_files
 
 load_dotenv()
 
@@ -82,7 +82,7 @@ class Base():
         """ Create authentication token from credentials """
         # credentials file downloaded to root from google cloud console
         self.flow = InstalledAppFlow.from_client_secrets_file(
-                            "credentials.json", self.__yt_scope)
+                            "credentials3.json", self.__yt_scope)
         self.creds = self.flow.run_local_server(
             port=8080, access_type='offline', prompt='consent')
 
