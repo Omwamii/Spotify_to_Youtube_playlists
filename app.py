@@ -31,12 +31,16 @@ def index():
     
 @app.route('/preview/<string:playlist_id>/', strict_slashes=False, methods=['GET'])
 def preview_playlist_conversion(playlist_id):
+    """ Takes user to a preview page to show the list of songs and an action btn to convert the playlist"""
     name, tracks, image = my_app.get_spotify_playlist_tracks(playlist_id)
     return render_template('playlist.html', name=name, tracks=tracks, image=image, p_id=playlist_id)
 
 
 @app.route('/convert/<string:playlist_id>', strict_slashes=False, methods=['GET', 'POST'])
 def convert_playlist(playlist_id):
+    """ API method to convert playlist 
+        playlist_id: unique identifier of the spotify playlist
+    """
     name, tracks, _ = my_app.get_spotify_playlist_tracks(playlist_id)
     try:
         p_id = my_app.create_youtube_music_playlist(name, tracks)
