@@ -8,7 +8,6 @@ from google.oauth2 import id_token
 # from make_celery import make_celery
 
 app = Flask(__name__)
-app.secret_key = 'q3239fbasnqlpdpwep'  # change to point to env
 
 # app.config.update(
 #     CELERY_BROKER_URL='redis://localhost:6379/0',
@@ -17,6 +16,8 @@ app.secret_key = 'q3239fbasnqlpdpwep'  # change to point to env
 # celery = make_celery(app)
 
 load_dotenv()
+
+app.secret_key = env.get('APP_SECRET_KEY')
 
 my_app = Spo2yt()
 
